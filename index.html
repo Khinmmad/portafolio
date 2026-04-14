@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Desarrollador Full Stack & Especialista en Automatización - Transformando ideas en experiencias digitales sorprendentes.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tu-usuario.github.io/portafolio/">
+    <meta property="og:title" content="ISRA | Desarrollador Interactivo">
+    <meta property="og:description" content="Explora mis proyectos y habilidades en desarrollo web y automatización.">
+    <meta property="og:image" content="assets/hero-bg.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="ISRA | Desarrollador Interactivo">
+    <meta property="twitter:description" content="Explora mis proyectos y habilidades en desarrollo web y automatización.">
+    <meta property="twitter:image" content="assets/hero-bg.png">
+
+    <title>ISRA | Portafolio Interactivo</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    
+    <nav id="navbar">
+        <div class="logo">ISRA<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Inicio</a></li>
+            <li><a href="#projects">Proyectos</a></li>
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-section">
+        <div class="hero-content">
+            <h2 class="reveal-text">Hola, soy un</h2>
+            <h1 id="typing-text"></h1>
+            <p class="reveal-text delay-1">Transformando ideas en experiencias digitales sorprendentes.</p>
+            <div class="hero-btns reveal-text delay-2">
+                <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
+                <a href="#contact" class="btn btn-secondary">Contactar</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>Desliza</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Mis <span>Proyectos</span></h2>
+                <div class="projects-grid">
+                    <div class="project-card reveal">
+                        <div class="project-img">
+                            <div class="overlay"><span>Ver Detalles</span></div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Web App Moderna</h3>
+                            <p>Una aplicación web interactiva con React y Node.js.</p>
+                            <div class="tags">
+                                <span class="tag">Next.js</span>
+                                <span class="tag">Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <div class="project-img">
+                            <div class="overlay"><span>Ver Detalles</span></div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Automatización Python</h3>
+                            <p>Scripts avanzados para optimización de flujos de trabajo.</p>
+                            <div class="tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">Selenium</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section alt-bg">
+            <div class="container about-flex">
+                <div class="about-text reveal">
+                    <h2 class="section-title">Sobre <span>Mí</span></h2>
+                    <p>Soy un desarrollador apasionado por crear interfaces que no solo funcionen, sino que cautiven. Me especializo en el desarrollo de aplicaciones web y scripts de automatización.</p>
+                    <p>Con un enfoque en el rendimiento y la estética minimalista, busco siempre la excelencia técnica en cada línea de código.</p>
+                </div>
+                <div class="about-stats reveal delay-1">
+                    <div class="stat-item">
+                        <span class="number">2+</span>
+                        <span class="label">Años Exp.</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number">15+</span>
+                        <span class="label">Proyectos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-card reveal">
+                    <h2 class="section-title">Hablemos de tu <span>Proyecto</span></h2>
+                    <p>¿Tienes una idea en mente? ¡Hagámosla realidad!</p>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name">Nombre</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" required placeholder=" "></textarea>
+                            <label for="message">Mensaje</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 ISRA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
