@@ -1,13 +1,15 @@
 :root {
     --primary-color: #6366f1;
     --secondary-color: #a855f7;
+    --accent-color: #f43f5e;
     --bg-dark: #0f172a;
     --bg-darker: #020617;
     --text-light: #f8fafc;
     --text-muted: #94a3b8;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-glow: rgba(99, 102, 241, 0.1);
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 * {
@@ -31,14 +33,70 @@ body {
 /* Cursor Glow */
 .cursor-glow {
     position: fixed;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
     transform: translate(-50%, -50%);
     transition: width 0.3s, height 0.3s;
+    filter: blur(40px);
+}
+
+/* Background Blobs */
+.background-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+    background: var(--bg-darker);
+}
+
+.blob {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    filter: blur(120px);
+    border-radius: 50%;
+    opacity: 0.15;
+    animation: move 25s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+    top: -10%;
+    left: -10%;
+    background: var(--primary-color);
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    bottom: -10%;
+    right: -10%;
+    background: var(--secondary-color);
+    animation-delay: -5s;
+    width: 500px;
+    height: 500px;
+}
+
+.blob-3 {
+    top: 40%;
+    left: 50%;
+    background: var(--accent-color);
+    animation-delay: -10s;
+    width: 400px;
+    height: 400px;
+}
+
+@keyframes move {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, 50px) scale(1.1); }
+    66% { transform: translate(-50px, 120px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
 }
 
 /* Navbar */
@@ -56,10 +114,11 @@ nav {
 }
 
 nav.scrolled {
-    background: rgba(2, 6, 23, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 1rem 10%;
+    background: rgba(2, 6, 23, 0.7);
+    backdrop-filter: blur(15px);
+    padding: 0.8rem 10%;
     border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
@@ -86,7 +145,8 @@ nav.scrolled {
     position: relative;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--text-light);
 }
 
@@ -101,7 +161,8 @@ nav.scrolled {
     transition: var(--transition);
 }
 
-.nav-links a:hover::after, .nav-links a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     width: 100%;
 }
 
@@ -113,8 +174,7 @@ nav.scrolled {
     justify-content: center;
     text-align: center;
     position: relative;
-    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.5) 0%, var(--bg-darker) 100%),
-                url('assets/hero-bg.png') no-repeat center center/cover;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -158,12 +218,29 @@ nav.scrolled {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
-    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.5);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.6);
 }
 
 .btn-secondary {
@@ -171,11 +248,13 @@ nav.scrolled {
     color: var(--text-light);
     border: 1px solid var(--glass-border);
     margin-left: 1rem;
+    backdrop-filter: blur(5px);
 }
 
 .btn-secondary:hover {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--primary-color);
+    transform: translateY(-3px);
 }
 
 /* Sections */
@@ -215,12 +294,14 @@ nav.scrolled {
     border-radius: 20px;
     overflow: hidden;
     transition: var(--transition);
+    backdrop-filter: blur(10px);
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-12px) scale(1.02);
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
 }
 
 .project-img {
@@ -271,6 +352,14 @@ nav.scrolled {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.project-card:hover .tag {
+    border-color: rgba(99, 102, 241, 0.3);
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
 }
 
 /* About Section */
@@ -296,6 +385,14 @@ nav.scrolled {
     border-radius: 20px;
     text-align: center;
     border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--primary-color);
 }
 
 .number {
@@ -330,7 +427,8 @@ form {
     position: relative;
 }
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 1rem;
     background: rgba(2, 6, 23, 0.5);
@@ -341,7 +439,8 @@ input, textarea {
     transition: var(--transition);
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     border-color: var(--primary-color);
     background: rgba(2, 6, 23, 0.8);
 }
@@ -356,12 +455,14 @@ label {
     transition: var(--transition);
 }
 
-textarea ~ label {
+textarea~label {
     top: 1.5rem;
 }
 
-input:focus ~ label, input:not(:placeholder-shown) ~ label,
-textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
+input:focus~label,
+input:not(:placeholder-shown)~label,
+textarea:focus~label,
+textarea:not(:placeholder-shown)~label {
     top: -10px;
     left: 10px;
     font-size: 0.8rem;
@@ -378,16 +479,50 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
     color: var(--text-muted);
 }
 
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+}
+
 /* Animations */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.reveal.active {
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.active,
+.reveal-left.active,
+.reveal-right.active,
+.reveal-scale.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
 }
 
 .reveal-text {
@@ -395,14 +530,32 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
     animation: fadeInUp 0.8s forwards;
 }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
+.delay-1 {
+    animation-delay: 0.2s;
+    transition-delay: 0.15s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+    transition-delay: 0.3s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+    transition-delay: 0.45s;
+}
+
+.delay-4 {
+    animation-delay: 0.8s;
+    transition-delay: 0.6s;
+}
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -414,15 +567,15 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
     .nav-links {
         display: none;
     }
-    
+
     .hero-content h1 {
         font-size: 2.5rem;
     }
-    
+
     .about-flex {
         flex-direction: column;
     }
-    
+
     .section {
         padding: 5rem 5%;
     }

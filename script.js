@@ -1,23 +1,26 @@
-// Scroll Reveal Animation
-const revealElements = document.querySelectorAll('.reveal');
+// Scroll Reveal Animation using IntersectionObserver
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
 
-const showOnScroll = () => {
-    revealElements.forEach((el) => {
-        const elementTop = el.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (elementTop < windowHeight - 50) {
-            el.classList.add('active');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
         }
     });
-};
+}, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -60px 0px'
+});
 
-window.addEventListener('scroll', showOnScroll);
-window.addEventListener('load', showOnScroll);
+revealElements.forEach(el => revealObserver.observe(el));
+
+// Scroll Progress Bar
+const progressBar = document.querySelector('.scroll-progress');
 
 // Typing Effect
 const textElement = document.getElementById('typing-text');
-const words = ["Desarrollador Web", "Diseñador UI/UX", "Entusiasta de Python"];
+const words = ["Israel", "Un entusiasta de la tecnología", "Un desarrollador de scripts y automatizaciones", "Usuario de Linux Intermedio"];
 let wordIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
@@ -25,7 +28,7 @@ let typeSpeed = 100;
 
 const type = () => {
     const currentWord = words[wordIndex];
-    const displayedText = isDeleting 
+    const displayedText = isDeleting
         ? currentWord.substring(0, charIndex - 1)
         : currentWord.substring(0, charIndex + 1);
 
@@ -55,20 +58,43 @@ document.addEventListener('DOMContentLoaded', () => {
     if (textElement) type();
 });
 
-// Cursor Glow
+// Cursor Glow with smooth lag
 const cursor = document.querySelector('.cursor-glow');
+let mouseX = 0;
+let mouseY = 0;
+let cursorX = 0;
+let cursorY = 0;
+
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 });
 
-// Navbar change on scroll
+const animateCursor = () => {
+    // Smooth interpolation (lerp)
+    cursorX += (mouseX - cursorX) * 0.1;
+    cursorY += (mouseY - cursorY) * 0.1;
+    
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    
+    requestAnimationFrame(animateCursor);
+};
+animateCursor();
+
+// Navbar change on scroll + Scroll Progress Bar
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
+    }
+
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar && docHeight > 0) {
+        progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
     }
 });
 
